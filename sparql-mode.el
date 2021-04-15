@@ -216,25 +216,25 @@ asynchronously."
     (other-window -1)))
 
 (defconst sparql--keywords
-  '("ADD" "ALL" "AS" "ASC" "ASK"
-    "BASE" "BIND" "BINDINGS" "BY"
+  '(;"ADD" "ALL" "AS" "ASC" "ASK"
+    ;; "BASE" "BIND" "BINDINGS" "BY"
     "CLEAR" "CONSTRUCT" "COPY" "CREATE"
-    "DATA" "DEFAULT" "DELETE" "DESC" "DESCRIBE" "DISTINCT" "DROP"
-    "EXISTS"
-    "FILTER" "FROM"
-    "GRAPH" "GROUP"
-    "HAVING"
-    "IN" "INSERT" "INTO"
-    "LIMIT" "LOAD"
-    "MINUS" "MOVE"
-    "NAMED" "NOT"
-    "OFFSET" "OPTIONAL" "ORDER"
-    "PREFIX"
-    "REDUCED"
+    ;; "DATA" "DEFAULT" "DELETE" "DESC" "DESCRIBE" "DISTINCT" "DROP"
+    ;; "EXISTS"
+    ;; "FILTER" "FROM"
+    ;; "GRAPH" "GROUP"
+    ;; "HAVING"
+    ;; "IN" "INSERT" "INTO"
+    ;; "LIMIT" "LOAD"
+    ;; "MINUS" "MOVE"
+    ;; "NAMED" "NOT"
+    ;; "OFFSET" "OPTIONAL" "ORDER"
+    ;; "PREFIX"
+    ;; "REDUCED"
     "SELECT" "SERVICE" "SILENT"
-    "TO"
-    "UNDEF" "UNION" "USING"
-    "VALUES"
+    ;; "TO"
+    ;; "UNDEF" "UNION" "USING"
+    ;; "VALUES"
     "WHERE" "WITH")
   'symbols)
 
@@ -278,7 +278,15 @@ asynchronously."
     (indent-line-to (or indent-column 0))))
 
 (defconst sparql-keywords
-  `(("<\\S-*>" 0 font-lock-constant-face)
+  `(;("<\\S-*>" 0 font-lock-constant-face)
+    ("{{\\w+}}" 0 font-lock-constant-face)
+    ("{{#if \\w+}}" 0 font-lock-constant-face)
+    ("{{/if}}" 0 font-lock-constant-face)
+    ("{{#unless \\w+}}" 0 font-lock-constant-face)
+    ("{{/unless}}" 0 font-lock-constant-face)
+    ("{{else}}" 0 font-lock-constant-face)
+    ("{{#each \\w+}}" 0 font-lock-constant-face)
+    ("{{/each}}" 0 font-lock-constant-face)
     ("[$?]\\w+" 0 font-lock-variable-name-face)
     ,(concat "\\b" (regexp-opt sparql--keywords) "\\b")))
 
@@ -303,6 +311,7 @@ asynchronously."
 (defvar sparql-syntax-propertize-function
   (syntax-propertize-rules
    ("<\\S-*>" (0 "@"))
+   ("{{\\S*"  (0 "@"))
    ("#"       (0 "<")))
   "We define a `syntax-propertize-function' that skips URLs
 because they can contain a #, but then adds the comment text

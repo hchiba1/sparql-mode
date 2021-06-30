@@ -280,7 +280,7 @@ asynchronously."
 (defconst sparql-keywords
   `(;("<\\S-*>" 0 font-lock-constant-face)
     ("{{\\w+}}" 0 font-lock-constant-face)
-    ("{{#if \\w+}}" 0 font-lock-constant-face)
+    ("{{#if [a-zA-Z_.]+}}" 0 font-lock-constant-face)
     ("{{/if}}" 0 font-lock-constant-face)
     ("{{#unless \\w+}}" 0 font-lock-constant-face)
     ("{{/unless}}" 0 font-lock-constant-face)
